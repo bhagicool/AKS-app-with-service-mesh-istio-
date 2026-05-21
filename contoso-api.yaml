@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: contoso-api
+  namespace: contoso
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: contoso-api
+
+  template:
+    metadata:
+      labels:
+        app: contoso-api
+
+    spec:
+      containers:
+      - name: api
+        image: nginx
+
+        ports:
+        - containerPort: 80
+
+        volumeMounts:
+        - name: nginx-config
+          mountPath: /etc/nginx/conf.d
+
+      volumes:
+      - name: nginx-config
+        configMap:
+          name: contoso-api-config
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: contoso-api-svc
+  namespace: contoso
+
+spec:
+  selector:
+    app: contoso-api
+
+  ports:
+  - port: 80
+    targetPort: 80
+
+  type: ClusterIP

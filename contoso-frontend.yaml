@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: contoso-frontend
+  namespace: contoso
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: contoso-frontend
+
+  template:
+    metadata:
+      labels:
+        app: contoso-frontend
+
+    spec:
+      containers:
+      - name: frontend
+        image: nginx
+
+        ports:
+        - containerPort: 80
+
+        volumeMounts:
+        - name: html
+          mountPath: /usr/share/nginx/html
+
+      volumes:
+      - name: html
+        configMap:
+          name: contoso-frontend-html
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: contoso-frontend-svc
+  namespace: contoso
+
+spec:
+  selector:
+    app: contoso-frontend
+
+  ports:
+  - port: 80
+    targetPort: 80
+
+  type: ClusterIP

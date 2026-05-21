@@ -1,0 +1,45 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: contoso-frontend-html
+  namespace: contoso
+
+data:
+  index.html: |
+    <!DOCTYPE html>
+    <html>
+
+    <body>
+
+    <h1>Frontend Contoso - Served by NGINX IC</h1>
+
+    <button onclick="callApi()">Call Example API</button>
+
+    <pre id="output"></pre>
+
+    <script>
+
+    async function callApi() {
+
+      try {
+
+        const response = await fetch("http://api.example.com");
+
+        const data = await response.text();
+
+        document.getElementById("output").innerText = data;
+
+      }
+
+      catch(err) {
+
+        document.getElementById("output").innerText = err;
+
+      }
+
+    }
+
+    </script>
+
+    </body>
+    </html>

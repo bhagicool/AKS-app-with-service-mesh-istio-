@@ -1,0 +1,45 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: example-frontend-html
+  namespace: example
+
+data:
+  index.html: |
+    <!DOCTYPE html>
+    <html>
+
+    <body>
+
+    <h1>Frontend Example - Served by AGIC</h1>
+
+    <button onclick="callApi()">Call Contoso API</button>
+
+    <pre id="output"></pre>
+
+    <script>
+
+    async function callApi() {
+
+      try {
+
+        const response = await fetch("http://api.contoso.com");
+
+        const data = await response.text();
+
+        document.getElementById("output").innerText = data;
+
+      }
+
+      catch(err) {
+
+        document.getElementById("output").innerText = err;
+
+      }
+
+    }
+
+    </script>
+
+    </body>
+    </html>

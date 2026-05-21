@@ -1,0 +1,14 @@
+apiVersion: networking.istio.io/v1beta1
+kind: Sidecar
+metadata:
+  name: example-egress
+  namespace: example
+
+spec:
+  workloadSelector:
+    labels:
+      app: example-frontend
+
+  egress:
+  - hosts:
+    - "./api.contoso.com"

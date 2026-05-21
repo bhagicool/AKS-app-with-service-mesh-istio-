@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: contoso-api-ingress
+  namespace: contoso
+
+spec:
+  ingressClassName: nginx-public
+
+  rules:
+  - host: api.contoso.com
+
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+
+        backend:
+          service:
+            name: contoso-api-svc
+
+            port:
+              number: 80

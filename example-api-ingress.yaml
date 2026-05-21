@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: example-api-ingress
+  namespace: example
+
+spec:
+  ingressClassName: azure-application-gateway
+
+  rules:
+  - host: api.example.com
+
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+
+        backend:
+          service:
+            name: example-api-svc
+
+            port:
+              number: 80

@@ -1,0 +1,14 @@
+apiVersion: networking.istio.io/v1beta1
+kind: Sidecar
+metadata:
+  name: contoso-egress
+  namespace: contoso
+
+spec:
+  workloadSelector:
+    labels:
+      app: contoso-frontend
+
+  egress:
+  - hosts:
+    - "./api.example.com"

@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: example-frontend
+  namespace: example
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: example-frontend
+
+  template:
+    metadata:
+      labels:
+        app: example-frontend
+
+    spec:
+      containers:
+      - name: frontend
+        image: nginx
+
+        ports:
+        - containerPort: 80
+
+        volumeMounts:
+        - name: html
+          mountPath: /usr/share/nginx/html
+
+      volumes:
+      - name: html
+        configMap:
+          name: example-frontend-html
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: example-frontend-svc
+  namespace: example
+
+spec:
+  selector:
+    app: example-frontend
+
+  ports:
+  - port: 80
+    targetPort: 80
+
+  type: ClusterIP
