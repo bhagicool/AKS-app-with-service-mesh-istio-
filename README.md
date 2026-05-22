@@ -1,3 +1,5 @@
+<img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/800b1fcb-f545-4dc9-b6d1-04556847e020" />
+
 # AKS-app-with-service-mesh-istio-
 AKS Cross-Namespace Frontend/API Isolation with FQDN-Based Egress Restriction
 # AKS Cross-Namespace Frontend/API Isolation with FQDN-Based Egress Restriction
